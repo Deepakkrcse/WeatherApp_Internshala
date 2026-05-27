@@ -81,7 +81,23 @@ async function getCurrentLocationWeather() {
     }
 }
 
+// Add Recent Search
+function addRecentSearch(city) {
+    // Check if city already exists
+    if (![...recentSearchList.children].some(item => item.textContent === city)) {
+        const listItem = document.createElement('li');
+        listItem.textContent = city;
+        listItem.className = 'cursor-pointer text-gray-700 hover:text-blue-500';
+        
+        listItem.onclick = () => {
+            searchInput.value = city;
+            getWeather(); // Call getWeather with the city
+        };
 
+        recentSearchList.appendChild(listItem);
+        recentSearches.classList.remove('hidden'); // Show the dropdown
+    }
+}
 
 // Update Weather UI
 function updateWeatherUI(data) {
@@ -96,5 +112,4 @@ function updateWeatherUI(data) {
     humidity.textContent = `${data.main.humidity}%`;
     pressure.textContent = `${data.main.pressure} hPa`;
 }
-
 
