@@ -14,7 +14,7 @@
     <main class="flex flex-col items-center justify-center min-h-screen p-5 relative">
       <!-- Header Section -->
       <header class="text-center mb-8">
-        <h1 class="text-5xl text-white font-extrabold">Weather Dashboard</h1>
+        <h1 class="text-5xl text-white font-extrabold">Weather Forecast</h1>
         <p class="text-lg text-gray-200">Daily weather updates powered by OpenWeatherMap</p>
       </header>
 
@@ -41,7 +41,30 @@
         </div>
         </section>
 
-     
+      <!-- Weather Display Section -->
+      <section class="bg-white rounded-lg shadow-lg p-6 mb-8 w-full max-w-xl text-center">
+        <h2 id="city-name" class="text-4xl font-semibold text-gray-800">City Name</h2>
+        <div class="flex justify-center items-center mt-2">
+          <img id="weather-icon" src="https://cdn-icons-png.flaticon.com/512/3222/3222691.png" alt="Sunny Weather Icon" class="w-16 h-16"/>
+          <p id="weather-description" class="text-2xl text-gray-700 ml-4">Condition</p>
+        </div>
+        <div class="flex justify-around mt-4">
+          <div class="flex flex-col items-center">
+            <p class="text-gray-700">Wind Speed</p>
+            <p id="wind-speed" class="text-3xl font-bold">0 km/h</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <p class="text-gray-700">Humidity</p>
+            <p id="humidity" class="text-3xl font-bold">0%</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <p class="text-gray-700">Pressure</p>
+            <p id="pressure" class="text-3xl font-bold">0 hPa</p>
+          </div>
+        </div>
+      </section>
+
+      
     </main>
 
     <script src="app.js"></script>
