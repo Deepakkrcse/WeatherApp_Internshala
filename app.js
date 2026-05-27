@@ -51,6 +51,36 @@ async function getWeather() {
     }
 }
 
+// Fetch Weather Data for Current Location
+async function getCurrentLocationWeather() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+
+            try {
+                // Fetch current weather
+                const weatherResponse = await fetch(`${BASE_URL}/weather?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
+                if (!weatherResponse.ok) throw new Error('Unable to retrieve weather data');
+
+                const weatherData = await weatherResponse.json();
+                updateWeatherUI(weatherData);
+                addRecentSearch(weatherData.name);
+
+                // Fetch 5-day forecast
+                const forecastResponse = await fetch(`${BASE_URL}/forecast?lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
+                const forecastData = await forecastResponse.json();
+                displayForecast(forecastData.list);
+            } catch (error) {
+                alert(error.message);
+            }
+        }, (error) => {
+            alert('Unable to retrieve your location. Please allow location access.');
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
+}
+
 
 
 // Update Weather UI
