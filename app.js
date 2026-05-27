@@ -113,3 +113,30 @@ function updateWeatherUI(data) {
     pressure.textContent = `${data.main.pressure} hPa`;
 }
 
+
+// Display 5-Day Forecast
+function displayForecast(forecastList) {
+    forecastContainer.innerHTML = ''; // Clear previous forecast data
+
+    // Displaying the forecast every 8 hours (3-hour intervals)
+    for (let i = 0; i < forecastList.length; i += 8) {
+        const day = forecastList[i];
+        const forecastCard = document.createElement('div');
+        forecastCard.className = 'bg-white p-4 rounded-lg shadow-md text-center';
+
+        const date = new Date(day.dt * 1000); 
+        const options = { weekday: 'short', month: 'short', day: 'numeric' };
+        const dateString = date.toLocaleDateString(undefined, options);
+
+        forecastCard.innerHTML = `
+            <p class="text-lg font-semibold">${dateString}</p>
+            <p class="text-sm text-gray-600">${date.toLocaleDateString(undefined, { weekday: 'long' })}</p>
+            <img src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}" class="mx-auto mb-2" />
+            <p class="text-xl font-bold">${day.main.temp}°C</p>
+            <p class="text-sm text-gray-600">Wind: ${day.wind.speed} m/s</p>
+            <p class="text-sm text-gray-600">Humidity: ${day.main.humidity}%</p>
+        `;
+
+        forecastContainer.appendChild(forecastCard);
+    }
+}
